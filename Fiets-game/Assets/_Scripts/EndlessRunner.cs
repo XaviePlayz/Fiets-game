@@ -6,6 +6,7 @@ public class EndlessRunner : MonoBehaviour
     public GameObject[] obstaclePatterns; // Array of obstacle patterns
     public float scrollSpeed = 5f;
     public float laneDistance = 2f; // Distance between lanes
+    public Transform spawnPatternLocation; 
     public float initialSpawnDelay = 2f; // Delay before the first pattern spawns
     public float patternSpawnRate = 5f; // Time between pattern spawns
 
@@ -55,7 +56,7 @@ public class EndlessRunner : MonoBehaviour
         GameObject selectedPattern = obstaclePatterns[Random.Range(0, obstaclePatterns.Length)];
 
         // Instantiate the selected pattern as a child of the environment
-        GameObject newPattern = Instantiate(selectedPattern, transform.position, Quaternion.identity, transform);
+        GameObject newPattern = Instantiate(selectedPattern, spawnPatternLocation.position, Quaternion.identity, transform);
 
         // Calculate the position for the new pattern
         float newPositionZ = newPattern.transform.position.z + segmentLength;

@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
     public float slideDuration = 1f;
-    public float laneDistance = 2f; // Distance between lanes
+    public float laneDistance = 4f; // Distance between lanes
 
     private int currentLane = 1; // 0 for left, 1 for middle, 2 for right
     private bool isSliding = false;
@@ -21,11 +22,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Get input for lane switching
-        if (Input.GetKeyDown(KeyCode.A) && currentLane > 0)
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > 0)
         {
             MoveLane(-1); // Move left
         }
-        else if (Input.GetKeyDown(KeyCode.D) && currentLane < 2)
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) && currentLane < 2)
         {
             MoveLane(1); // Move right
         }
@@ -83,5 +84,13 @@ public class PlayerController : MonoBehaviour
         // Reset the player's scale and deactivate the isSliding flag
         transform.localScale = Vector3.one;
         isSliding = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle"))
+        {
+            SceneManager.LoadScene("Main");
+        }
     }
 }
