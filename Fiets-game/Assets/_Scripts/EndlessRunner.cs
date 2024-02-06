@@ -3,36 +3,71 @@ using UnityEngine;
 
 public class EndlessRunner : MonoBehaviour
 {
+    #region Singleton
+
+    private static PlayerController _instance;
+    public static PlayerController Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<PlayerController>();
+
+                if (_instance == null)
+                {
+                    GameObject obj = new GameObject();
+                    obj.name = typeof(PlayerController).Name;
+                    _instance = obj.AddComponent<PlayerController>();
+                }
+            }
+            return _instance;
+        }
+    }
+
+    #endregion
+
     public GameObject[] obstaclePatterns; // Array of obstacle patterns
     public float scrollSpeed = 5f;
     public float laneDistance = 2f; // Distance between lanes
     public Transform spawnPatternLocation; 
-    public float initialSpawnDelay = 2f; // Delay before the first pattern spawns
     public float patternSpawnRate = 5f; // Time between pattern spawns
 
     private float nextSpawnTime;
     private float segmentLength;
 
+    public bool hasStarted;
+
     void Start()
     {
         segmentLength = laneDistance; // Adjust this based on your needs
-        nextSpawnTime = Time.time + initialSpawnDelay;
-
-        // Initial spawn to start the game
-        SpawnObstaclePattern();
-        nextSpawnTime = Time.time + patternSpawnRate;
     }
 
     void Update()
     {
-        MoveEnvironment();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Trigger the Start Running animation
+            PlayerController.Instance.animator.SetBool("StartRunning", true);
+
+            // Reset the rotation to 0 at the start of Start Running animation
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            hasStarted = true;
+        }
+        if (hasStarted)
+        {
+            MoveEnvironment();
+        }
 
         // Check if it's time to spawn a new obstacle pattern
-        if (Time.time >= nextSpawnTime)
+        if (hasStarted)
         {
-            SpawnObstaclePattern();
-            nextSpawnTime = Time.time + patternSpawnRate;
-        }
+            if (Time.time >= nextSpawnTime)
+            {
+                SpawnObstaclePattern();
+                nextSpawnTime = Time.time + patternSpawnRate;
+            }
+        }      
     }
 
     void MoveEnvironment()
