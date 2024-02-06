@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     public float slideDuration = 1f;
     public float laneDistance = 4f; // Distance between lanes
-    public float blendSpeed;
 
     private int currentLane = 1; // 0 for left, 1 for middle, 2 for right
     private bool isSliding = false;
@@ -51,8 +50,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (true)
+        if (EndlessRunner.Instance.hasStarted)
         {
+            HandleInput();
+
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("Start Running"))
             {
                 // Check if the animation has reached a specific time (adjust as needed)
@@ -62,46 +63,53 @@ public class PlayerController : MonoBehaviour
                     animator.SetBool("IsRunning", true);
                 }
             }
+        }
+    }
 
-            if (transform.position.y > 2f)
-            {
-                Vector3 newPosition = new Vector3(transform.position.x, 2f, transform.position.z);
-                transform.position = newPosition;
-            }
+    void HandleInput()
+    {
+        if (transform.position.y > 2f)
+        {
+            Vector3 newPosition = new Vector3(transform.position.x, 2f, transform.position.z);
+            transform.position = newPosition;
+        }
 
-            // Check for jump input
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                if (!isSliding)
-                {
-                    Jump();
-                }
-                else
-                {
-                    // Cancel sliding immediately and jump with greater force
-                    CancelSlideJump();
-                }
-            }
+        // Get input for lane switching
+        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && currentLane > 0)
+        {
+            MoveLane(-1); // Move left
+            Debug.Log("Left");
+        }
+        else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && currentLane < 2)
+        {
+            MoveLane(1); // Move right
+            Debug.Log("Right");
+        }
 
-            // Check for slide input
-            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        // Check for jump input
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) && !isJumping)
+        {
+            Debug.Log("Jump");
+            if (!isSliding)
             {
-                if (!isSliding)
-                {
-                    Slide();
-                }
+                Jump();
             }
+            else
+            {
+                // Cancel sliding immediately and jump with greater force
+                CancelSlideJump();
+            }
+        }
 
-            // Get input for lane switching
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > 0)
+        // Check for slide input
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (!isSliding)
             {
-                MoveLane(-1); // Move left
+                Slide();
+                Debug.Log("Slide");
             }
-            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) && currentLane < 2)
-            {
-                MoveLane(1); // Move right
-            }
-        }      
+        }
     }
 
     void MoveLane(int direction)
@@ -133,7 +141,6 @@ public class PlayerController : MonoBehaviour
         // Cancel sliding immediately and jump with greater force
         StopCoroutine(SlideRoutine());
         isSliding = false;
-        transform.localScale = Vector3.one;
 
         // Apply a force for canceled slide jump
         GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -157,15 +164,12 @@ public class PlayerController : MonoBehaviour
     IEnumerator SlideRoutine()
     {
         isSliding = true;
-
-        // Adjust the player's scale to make it smaller (simulate sliding)
-        transform.localScale = new Vector3(1f, 0.5f, 1f);
+        animator.SetTrigger("IsSliding");
 
         // Wait for the slide duration
         yield return new WaitForSeconds(slideDuration);
 
         // Reset the player's scale and deactivate the isSliding flag
-        transform.localScale = Vector3.one;
         isSliding = false;
 
         // Set the jumping flag to false after sliding

@@ -5,20 +5,20 @@ public class EndlessRunner : MonoBehaviour
 {
     #region Singleton
 
-    private static PlayerController _instance;
-    public static PlayerController Instance
+    private static EndlessRunner _instance;
+    public static EndlessRunner Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<PlayerController>();
+                _instance = FindObjectOfType<EndlessRunner>();
 
                 if (_instance == null)
                 {
                     GameObject obj = new GameObject();
-                    obj.name = typeof(PlayerController).Name;
-                    _instance = obj.AddComponent<PlayerController>();
+                    obj.name = typeof(EndlessRunner).Name;
+                    _instance = obj.AddComponent<EndlessRunner>();
                 }
             }
             return _instance;
@@ -45,13 +45,12 @@ public class EndlessRunner : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !hasStarted)
         {
             // Trigger the Start Running animation
             PlayerController.Instance.animator.SetBool("StartRunning", true);
 
             // Reset the rotation to 0 at the start of Start Running animation
-            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             hasStarted = true;
         }
         if (hasStarted)
