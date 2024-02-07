@@ -28,15 +28,23 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    [Header("Movement")]
     public float moveSpeed = 5f;
-    public float jumpForce = 10f;
-    public float slideDuration = 1f;
-    public float laneDistance = 4f; // Distance between lanes
-
+    public float laneDistance = 4f;
     private int currentLane = 1; // 0 for left, 1 for middle, 2 for right
+
+    [Header("Jump")]
+    public float jumpForce = 10f;
+    public float maxJumpHeight = 2f;
+    public float descentForce = 2f;
+    private bool isJumping = false;
+    private bool isGrounded = true;
+
+    [Header("Slide")]
+    public float slideDuration = 1f;
     private bool isSliding = false;
-    private bool isJumping = false; // Track whether the player is currently jumping
-    private bool isGrounded = true; // Track whether the player is grounded
+
+
 
     public Animator animator;
 
@@ -68,28 +76,25 @@ public class PlayerController : MonoBehaviour
 
     void HandleInput()
     {
-        if (transform.position.y > 2f)
+        // Apply a downward force if the player is above the max jump height
+        if (transform.position.y > maxJumpHeight)
         {
-            Vector3 newPosition = new Vector3(transform.position.x, 2f, transform.position.z);
-            transform.position = newPosition;
+            GetComponent<Rigidbody>().AddForce(Vector3.down * descentForce, ForceMode.Acceleration);
         }
 
         // Get input for lane switching
         if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && currentLane > 0)
         {
             MoveLane(-1); // Move left
-            Debug.Log("Left");
         }
         else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && currentLane < 2)
         {
             MoveLane(1); // Move right
-            Debug.Log("Right");
         }
 
         // Check for jump input
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) && !isJumping)
         {
-            Debug.Log("Jump");
             if (!isSliding)
             {
                 Jump();
@@ -107,7 +112,6 @@ public class PlayerController : MonoBehaviour
             if (!isSliding)
             {
                 Slide();
-                Debug.Log("Slide");
             }
         }
     }
@@ -125,6 +129,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded) // Check if currently grounded
         {
+            animator.SetTrigger("IsJumping");
             // Apply a force to make the player jump
             GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
@@ -158,6 +163,10 @@ public class PlayerController : MonoBehaviour
         {
             // Start sliding by adjusting the player's scale and activating the isSliding flag
             StartCoroutine(SlideRoutine());
+        }
+        else
+        {
+            //
         }
     }
 
