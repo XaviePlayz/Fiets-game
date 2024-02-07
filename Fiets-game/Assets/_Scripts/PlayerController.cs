@@ -37,12 +37,12 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     public float maxJumpHeight = 2f;
     public float descentForce = 2f;
-    private bool isJumping = false;
-    private bool isGrounded = true;
+    [SerializeField] private bool isJumping = false;
+    [SerializeField] private bool isGrounded = true;
 
     [Header("Slide")]
     public float slideDuration = 1f;
-    private bool isSliding = false;
+    [SerializeField] private bool isSliding = false;
 
 
 
@@ -80,6 +80,10 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y > maxJumpHeight)
         {
             GetComponent<Rigidbody>().AddForce(Vector3.down * descentForce, ForceMode.Acceleration);
+        }
+        if (isGrounded)
+        {
+            isJumping = false;
         }
 
         // Get input for lane switching
@@ -209,6 +213,7 @@ public class PlayerController : MonoBehaviour
     void CancelSlideJump()
     {
         // Cancel sliding immediately and jump with greater force
+        animator.SetTrigger("IsJumping");
         StopCoroutine(SlideRoutine());
         isSliding = false;
 
@@ -231,7 +236,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //
+            GetComponent<Rigidbody>().AddForce(Vector3.down * descentForce * 7, ForceMode.Impulse);
+            StartCoroutine(SlideRoutine());
         }
     }
 
