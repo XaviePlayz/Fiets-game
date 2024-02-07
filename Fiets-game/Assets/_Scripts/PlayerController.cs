@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float laneDistance = 4f;
-    private int currentLane = 1; // 0 for left, 1 for middle, 2 for right
+    [SerializeField] private int currentLane = 1; // 0 for left, 1 for middle, 2 for right
 
     [Header("Jump")]
     public float jumpForce = 10f;
@@ -83,11 +83,11 @@ public class PlayerController : MonoBehaviour
         }
 
         // Get input for lane switching
-        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && currentLane > 0)
+        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)))
         {
             MoveLane(-1); // Move left
         }
-        else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && currentLane < 2)
+        else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)))
         {
             MoveLane(1); // Move right
         }
@@ -118,11 +118,76 @@ public class PlayerController : MonoBehaviour
 
     void MoveLane(int direction)
     {
-        // Move the player to the adjacent lane
-        currentLane += direction;
-        currentLane = Mathf.Clamp(currentLane, 0, 2); // Ensure the player stays within valid lanes
-        Vector3 targetPosition = new Vector3(currentLane * laneDistance, transform.position.y, transform.position.z);
+        // Check for obstacles in the target lane before moving
+        if (!CheckObstacleInLane(currentLane + direction, direction))
+        {
+            // Move the player to the adjacent lane if no obstacle is detected
+            currentLane += direction;
+            currentLane = Mathf.Clamp(currentLane, 0, 2); // Ensure the player stays within valid lanes
+            Vector3 targetPosition = new Vector3(currentLane * laneDistance, transform.position.y, transform.position.z);
+            transform.position = targetPosition;
+            StopCoroutine(ObstacleAnimationRoutineLeft());
+            StopCoroutine(ObstacleAnimationRoutineRight());
+        }
+    }
+
+
+    bool CheckObstacleInLane(int lane, int direction)
+    {
+        Debug.Log("Checking for obstacles in lane: " + lane);
+
+        // Set the check position just above the player to avoid self-collision
+        Vector3 checkPosition = new Vector3(lane * laneDistance, transform.position.y + 0.1f, transform.position.z);
+
+        // Check for obstacles at the specified position
+        Collider[] colliders = Physics.OverlapSphere(checkPosition, 0.5f, LayerMask.GetMask("Obstacle"));
+
+        // If there are colliders in the "Obstacle" layer, an obstacle is detected
+        if (colliders.Length > 0)
+        {
+            Debug.Log("Obstacle detected in lane!");
+            if (direction < 0)
+            {
+                StartCoroutine(ObstacleAnimationRoutineLeft());
+            }
+            else
+            {
+                StartCoroutine(ObstacleAnimationRoutineRight());
+            }
+            return true;
+        }
+
+        // No obstacle detected
+        return false;
+    }
+
+    IEnumerator ObstacleAnimationRoutineLeft()
+    {
+        // Play the obstacle animation
+        animator.SetTrigger("ObstacleLeftEncountered");
+        Vector3 targetPosition = new Vector3(currentLane * (laneDistance - 1.5f), transform.position.y, transform.position.z);
         transform.position = targetPosition;
+        currentLane--;
+
+        // Wait for the animation duration
+        yield return new WaitForSeconds(1f);
+
+        // Reset the animation state
+        animator.ResetTrigger("ObstacleLeftEncountered");
+    }
+    IEnumerator ObstacleAnimationRoutineRight()
+    {
+        // Play the obstacle animation
+        animator.SetTrigger("ObstacleRightEncountered");
+        Vector3 targetPosition = new Vector3(currentLane * (laneDistance + 1.5f), transform.position.y, transform.position.z);
+        transform.position = targetPosition;
+        currentLane++;
+
+        // Wait for the animation duration
+        yield return new WaitForSeconds(1f);
+
+        // Reset the animation state
+        animator.ResetTrigger("ObstacleRightEncountered");
     }
 
     void Jump()

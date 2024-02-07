@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7106529511630262659}
   - component: {fileID: 2779723985196898202}
   - component: {fileID: 4502083905532707440}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle_Pick up Truck_color02 (3)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 1431440514601506426}
   - component: {fileID: 6089864464278168247}
   - component: {fileID: 273281049791736495}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (8)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 6113494688845823409}
   - component: {fileID: 2251026088343833714}
   - component: {fileID: 7502826321548248462}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Slide - Barrier (1)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 4016859989918984648}
   - component: {fileID: 807316058099909421}
   - component: {fileID: 3565711935780080659}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (7)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 23216928158732049}
   - component: {fileID: 3149552769998673477}
   - component: {fileID: 4216169496025420375}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (7)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 783350753136498455}
   - component: {fileID: 5406729860851378973}
   - component: {fileID: 7065067773061586444}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle_Car_color02 (2)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -696,7 +696,7 @@ Transform:
   m_GameObject: {fileID: 1662412828119986400}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.866684, y: -1.1099998, z: -16.77}
+  m_LocalPosition: {x: 8.08, y: -1.1099998, z: -16.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -814,7 +814,7 @@ GameObject:
   - component: {fileID: 7405485748938701508}
   - component: {fileID: 6051375720727074565}
   - component: {fileID: 5063164706663286831}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Barrier (4)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 8640693660817987301}
   - component: {fileID: 3769502346186301357}
   - component: {fileID: 4356694993903624150}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle_Pick up Truck_color01 (11)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -1122,7 +1122,7 @@ Transform:
   m_GameObject: {fileID: 2478309599033147572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.219999, y: -1.0999999, z: -7.3346863}
+  m_LocalPosition: {x: 8.08, y: -1.0999999, z: -7.3346863}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 9115921924139812241}
   - component: {fileID: 2061489060859149600}
   - component: {fileID: 47214955530489928}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (7)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -1373,7 +1373,7 @@ GameObject:
   - component: {fileID: 5338023458059001448}
   - component: {fileID: 875254533110438268}
   - component: {fileID: 2856641859331306080}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Barrier (2)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -1508,7 +1508,7 @@ GameObject:
   - component: {fileID: 6722349874759220440}
   - component: {fileID: 1627494472709229836}
   - component: {fileID: 1644215419604082632}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (8)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -1641,7 +1641,7 @@ GameObject:
   - component: {fileID: 1232391759291233357}
   - component: {fileID: 1345994494503797783}
   - component: {fileID: 4715275287415443419}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Barrier (3)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -1776,7 +1776,7 @@ GameObject:
   - component: {fileID: 7022338346871472962}
   - component: {fileID: 8044335082507177649}
   - component: {fileID: 4964749810731807915}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle_Car_color02 (3)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -1792,7 +1792,7 @@ Transform:
   m_GameObject: {fileID: 4102691801140676468}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000016292068}
-  m_LocalPosition: {x: -0.1, y: -1.1099998, z: -9.544678}
+  m_LocalPosition: {x: -0.2899567, y: -1.1099998, z: -9.544678}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1958,7 +1958,7 @@ GameObject:
   - component: {fileID: 5491753560336057293}
   - component: {fileID: 6990351495650321404}
   - component: {fileID: 6958642599262087271}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Barrier
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2093,7 +2093,7 @@ GameObject:
   - component: {fileID: 5431503726291499846}
   - component: {fileID: 506615154446414390}
   - component: {fileID: 3542697152024983458}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (8)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2226,7 +2226,7 @@ GameObject:
   - component: {fileID: 6181395212843118197}
   - component: {fileID: 921531093799394871}
   - component: {fileID: 2840359330776058525}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (7)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2359,7 +2359,7 @@ GameObject:
   - component: {fileID: 2078448495511845660}
   - component: {fileID: 3734803696077316082}
   - component: {fileID: 2813569227839087848}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle_Truck_color02 (4)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2375,7 +2375,7 @@ Transform:
   m_GameObject: {fileID: 6121839220217079379}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.5571747, y: -1.0999999, z: -49.333885}
+  m_LocalPosition: {x: 8.08, y: -1.0999999, z: -49.333885}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2493,7 +2493,7 @@ GameObject:
   - component: {fileID: 6119917832834185101}
   - component: {fileID: 8905261526244807316}
   - component: {fileID: 2992830124819948807}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (8)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2626,7 +2626,7 @@ GameObject:
   - component: {fileID: 8016097184432219687}
   - component: {fileID: 5569657555385056846}
   - component: {fileID: 1567890050540386672}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Slide - Barrier (2)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2760,7 +2760,7 @@ GameObject:
   - component: {fileID: 3472390351809761142}
   - component: {fileID: 2031998920414000403}
   - component: {fileID: 4037188667258402618}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (7)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2893,7 +2893,7 @@ GameObject:
   - component: {fileID: 8827335262609254202}
   - component: {fileID: 4710065375396186359}
   - component: {fileID: 8958772039671654515}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle_Pick up Truck_color02 (9)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2909,7 +2909,7 @@ Transform:
   m_GameObject: {fileID: 7834722171121651505}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.557129, y: -1.0999999, z: 18.882624}
+  m_LocalPosition: {x: 4.110209, y: -1.0999999, z: 18.882624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3027,7 +3027,7 @@ GameObject:
   - component: {fileID: 4923040476586864370}
   - component: {fileID: 8918433847959943579}
   - component: {fileID: 7009399654372815613}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle_SUV_color01 (10)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -3043,7 +3043,7 @@ Transform:
   m_GameObject: {fileID: 8185284572293098456}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.04129, y: -1.0999999, z: -26.48}
+  m_LocalPosition: {x: 8.08, y: -1.0999999, z: -26.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3161,7 +3161,7 @@ GameObject:
   - component: {fileID: 109989368370882197}
   - component: {fileID: 3198219023817767682}
   - component: {fileID: 7721783394977513128}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (8)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -3294,7 +3294,7 @@ GameObject:
   - component: {fileID: 656988062529583909}
   - component: {fileID: 1720731454907046683}
   - component: {fileID: 5354117087959226656}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle_Pick up Truck_color01 (10)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -3310,7 +3310,7 @@ Transform:
   m_GameObject: {fileID: 8482645841574599619}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000016292068}
-  m_LocalPosition: {x: 0.22, y: -1.0999999, z: -29.419685}
+  m_LocalPosition: {x: -0.2899567, y: -1.0999999, z: -29.419685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3428,7 +3428,7 @@ GameObject:
   - component: {fileID: 8429341382022259568}
   - component: {fileID: 1553709037591739652}
   - component: {fileID: 7594499958672428870}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Props_Traffic Control Barrier Fence (8)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -3561,7 +3561,7 @@ GameObject:
   - component: {fileID: 4908030830133819374}
   - component: {fileID: 1647972033286671519}
   - component: {fileID: 1858486296128391776}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle_Car_color03 (4)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -3576,13 +3576,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8726810941437265609}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.94117594, z: -0, w: -0.33791694}
-  m_LocalPosition: {x: -1.300003, y: -1.0999999, z: 8.832012}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.2899567, y: -1.0999999, z: 8.832012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3070794877176094955}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!33 &4684561761473430781
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3695,7 +3695,7 @@ GameObject:
   - component: {fileID: 769486934665524765}
   - component: {fileID: 1082785587759963239}
   - component: {fileID: 3617320080642604855}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Jump - Barrier
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

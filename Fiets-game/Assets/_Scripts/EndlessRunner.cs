@@ -40,6 +40,10 @@ public class EndlessRunner : MonoBehaviour
 
     void Start()
     {
+        SpawnObstaclePattern();
+
+        // Set nextSpawnTime to a value greater than the current time plus patternSpawnRate
+        nextSpawnTime = Time.time + patternSpawnRate;
         segmentLength = laneDistance; // Adjust this based on your needs
     }
 
