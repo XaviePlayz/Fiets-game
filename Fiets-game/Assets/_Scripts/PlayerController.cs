@@ -44,8 +44,6 @@ public class PlayerController : MonoBehaviour
     public float slideDuration = 1f;
     [SerializeField] private bool isSliding = false;
 
-
-
     public Animator animator;
 
     void Start()
