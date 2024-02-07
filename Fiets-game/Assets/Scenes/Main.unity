@@ -55808,8 +55808,12 @@ PrefabInstance:
       value: -35.26105
       objectReference: {fileID: 0}
     - target: {fileID: 917195607976123790, guid: 33a7535c547bf2f499a7bd30d5c3857b, type: 3}
+      propertyPath: jumpForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 917195607976123790, guid: 33a7535c547bf2f499a7bd30d5c3857b, type: 3}
       propertyPath: descentForce
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1142617978504358771, guid: 33a7535c547bf2f499a7bd30d5c3857b, type: 3}
       propertyPath: m_LocalPosition.x

@@ -79,11 +79,13 @@ public class PlayerController : MonoBehaviour
         // Apply a downward force if the player is above the max jump height
         if (transform.position.y > maxJumpHeight)
         {
-            GetComponent<Rigidbody>().AddForce(Vector3.down * descentForce, ForceMode.Acceleration);
+            // Reduce the vertical velocity to make the descent smoother
+            GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x, -descentForce, GetComponent<Rigidbody>().velocity.z);
         }
-        if (isGrounded)
+        else
         {
-            isJumping = false;
+            // If not above the max jump height, apply a lesser downward force
+            GetComponent<Rigidbody>().AddForce(Vector3.down * descentForce, ForceMode.Acceleration);
         }
 
         // Get input for lane switching
@@ -199,7 +201,9 @@ public class PlayerController : MonoBehaviour
         if (isGrounded) // Check if currently grounded
         {
             animator.SetTrigger("IsJumping");
-            // Apply a force to make the player jump
+
+            // Apply an impulse force to make the player jump
+            GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x, 0f, GetComponent<Rigidbody>().velocity.z);
             GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
             // Set the jumping flag to true
