@@ -48,27 +48,31 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // Initialize the player in the middle lane
-        Vector3 initialPosition = new Vector3(currentLane * laneDistance, transform.position.y, transform.position.z);
-        transform.position = initialPosition;
+        // Adjust the target x-position based on the desired lane positions
+        float targetX = currentLane * laneDistance - 2f;
+
+        // Set the new position
+        Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
+        transform.position = targetPosition;
+
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Start Running"))
+        {
+            // Check if the animation has reached a specific time (adjust as needed)
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
+            {
+                // Trigger the Running animation
+                animator.SetBool("IsRunning", true);
+            }
+        }
+
         if (EndlessRunner.Instance.hasStarted)
         {
             HandleInput();
-
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Start Running"))
-            {
-                // Check if the animation has reached a specific time (adjust as needed)
-                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
-                {
-                    // Trigger the Running animation
-                    animator.SetBool("IsRunning", true);
-                }
-            }
         }
     }
 
@@ -128,8 +132,15 @@ public class PlayerController : MonoBehaviour
             // Move the player to the adjacent lane if no obstacle is detected
             currentLane += direction;
             currentLane = Mathf.Clamp(currentLane, 0, 2); // Ensure the player stays within valid lanes
-            Vector3 targetPosition = new Vector3(currentLane * laneDistance, transform.position.y, transform.position.z);
+
+            // Adjust the target x-position based on the desired lane positions
+            float targetX = currentLane * laneDistance - 2f;
+
+            // Set the new position
+            Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
             transform.position = targetPosition;
+
+            // Stop obstacle animation routines if running
             StopCoroutine(ObstacleAnimationRoutineLeft());
             StopCoroutine(ObstacleAnimationRoutineRight());
         }

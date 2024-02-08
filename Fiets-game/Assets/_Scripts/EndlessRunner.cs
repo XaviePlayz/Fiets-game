@@ -42,7 +42,7 @@ public class EndlessRunner : MonoBehaviour
     private float nextSpawnTime;
     private float segmentLength;
 
-    private int initialSegmentCount = 2; // Number of segments to spawn initially
+    private int initialSegmentCount = 1; // Number of segments to spawn initially
     private Vector3 offscreenSpawnPosition;
 
     private List<GameObject> segmentPool;
@@ -73,33 +73,28 @@ public class EndlessRunner : MonoBehaviour
         {
             // Trigger the Start Running animation
             PlayerController.Instance.animator.SetBool("StartRunning", true);
-
-            // Reset the rotation to 0 at the start of Start Running animation
-            hasStarted = true;
+            nextSpawnTime = Time.time + patternSpawnRate;  // Set the next spawn time
         }
 
-        if (hasStarted)
+        if (PlayerController.Instance.animator.GetCurrentAnimatorStateInfo(0).IsName("Running"))
         {
-            MoveEnvironment();
+            hasStarted = true;
         }
 
         // Check if it's time to spawn a new obstacle pattern
         if (hasStarted)
         {
-            if (segmentSpawnedCount == 0)
-            {
-                segmentLength = 48f;
-            }
+            MoveEnvironment();
+
             if (segmentSpawnedCount == 1)
             {
-                segmentLength = 38f;
+
             }
 
-            if (Time.time >= nextSpawnTime)
+            if (hasStarted && Time.time >= nextSpawnTime)
             {
                 segmentSpawnedCount++;
                 SpawnObstaclePattern();
-                segmentLength = 15f;
                 nextSpawnTime = Time.time + patternSpawnRate;
             }
             //if (segmentSpawnedCount == 10)
