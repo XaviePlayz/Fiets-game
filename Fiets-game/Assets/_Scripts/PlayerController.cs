@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
         Vector3 checkPosition = new Vector3(lane * laneDistance, transform.position.y + 0.1f, transform.position.z);
 
         // Check for obstacles at the specified position
-        Collider[] colliders = Physics.OverlapSphere(checkPosition, 0.5f, LayerMask.GetMask("Obstacle"));
+        Collider[] colliders = Physics.OverlapSphere(checkPosition, 1.0f, LayerMask.GetMask("Obstacle"));
 
         // If there are colliders in the "Obstacle" layer, an obstacle is detected
         if (colliders.Length > 0)
@@ -178,32 +178,63 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ObstacleAnimationRoutineLeft()
     {
+        float previousLocation = transform.position.x;
         // Play the obstacle animation
         animator.SetTrigger("ObstacleLeftEncountered");
-        Vector3 targetPosition = new Vector3(currentLane * (laneDistance - 1.5f), transform.position.y, transform.position.z);
-        transform.position = targetPosition;
-        currentLane--;
 
         // Wait for the animation duration
         yield return new WaitForSeconds(1f);
+
+        // Update the current lane
+        currentLane--;
+
+        // Move smoothly to the new position
+        float targetX = previousLocation;
+        StartCoroutine(MoveToLane(targetX));
 
         // Reset the animation state
         animator.ResetTrigger("ObstacleLeftEncountered");
     }
+
     IEnumerator ObstacleAnimationRoutineRight()
     {
+        float previousLocation = transform.position.x;
         // Play the obstacle animation
         animator.SetTrigger("ObstacleRightEncountered");
-        Vector3 targetPosition = new Vector3(currentLane * (laneDistance + 1.5f), transform.position.y, transform.position.z);
-        transform.position = targetPosition;
-        currentLane++;
 
         // Wait for the animation duration
         yield return new WaitForSeconds(1f);
 
+        // Update the current lane
+        currentLane++;
+
+        // Move smoothly to the new position
+        float targetX = previousLocation;
+        StartCoroutine(MoveToLane(targetX));
+
         // Reset the animation state
         animator.ResetTrigger("ObstacleRightEncountered");
     }
+
+    IEnumerator MoveToLane(float targetX)
+    {
+        float elapsedTime = 0f;
+        float duration = 0.5f; // Adjust the duration as needed
+        Vector3 initialPosition = transform.position;
+        Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
+
+        while (elapsedTime < duration)
+        {
+            // Move gradually towards the target position
+            transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the player is exactly at the target position
+        transform.position = targetPosition;
+    }
+
 
     void Jump()
     {
