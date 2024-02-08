@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
         Vector3 checkPosition = new Vector3(lane * laneDistance, transform.position.y + 0.1f, transform.position.z);
 
         // Check for obstacles at the specified position
-        Collider[] colliders = Physics.OverlapSphere(checkPosition, 1.0f, LayerMask.GetMask("Obstacle"));
+        Collider[] colliders = Physics.OverlapSphere(checkPosition, 0.75f, LayerMask.GetMask("Obstacle"));
 
         // If there are colliders in the "Obstacle" layer, an obstacle is detected
         if (colliders.Length > 0)
