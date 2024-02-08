@@ -86,15 +86,11 @@ public class EndlessRunner : MonoBehaviour
         {
             MoveEnvironment();
 
-            if (segmentSpawnedCount == 1)
-            {
-
-            }
-
             if (hasStarted && Time.time >= nextSpawnTime)
             {
                 segmentSpawnedCount++;
                 SpawnObstaclePattern();
+                patternSpawnRate = 10.82f;
                 nextSpawnTime = Time.time + patternSpawnRate;
             }
             //if (segmentSpawnedCount == 10)
