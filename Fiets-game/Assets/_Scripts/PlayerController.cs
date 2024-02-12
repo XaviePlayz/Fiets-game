@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         // Adjust the target x-position based on the desired lane positions
-        float targetX = currentLane * laneDistance - 2f;
+        float targetX = currentLane * laneDistance;
 
         // Set the new position
         Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
@@ -126,15 +126,17 @@ public class PlayerController : MonoBehaviour
 
     void MoveLane(int direction)
     {
+        int targetLane = currentLane + direction;
+
         // Check for obstacles in the target lane before moving
-        if (!CheckObstacleInLane(currentLane + direction, direction))
+        if (!CheckObstacleInLane(targetLane, direction))
         {
             // Move the player to the adjacent lane if no obstacle is detected
-            currentLane += direction;
+            currentLane = targetLane;
             currentLane = Mathf.Clamp(currentLane, 0, 2); // Ensure the player stays within valid lanes
 
             // Adjust the target x-position based on the desired lane positions
-            float targetX = currentLane * laneDistance - 2f;
+            float targetX = currentLane * laneDistance;
 
             // Set the new position
             Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
@@ -147,12 +149,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    bool CheckObstacleInLane(int lane, int direction)
+    bool CheckObstacleInLane(int targetLane, int direction)
     {
-        Debug.Log("Checking for obstacles in lane: " + lane);
+        Debug.Log("Checking for obstacles in lane: " + targetLane);
 
         // Set the check position just above the player to avoid self-collision
-        Vector3 checkPosition = new Vector3(lane * laneDistance, transform.position.y + 0.1f, transform.position.z);
+        Vector3 checkPosition = new Vector3(targetLane * laneDistance, transform.position.y + 0.1f, transform.position.z);
 
         // Check for obstacles at the specified position
         Collider[] colliders = Physics.OverlapSphere(checkPosition, 0.75f, LayerMask.GetMask("Obstacle"));
@@ -176,41 +178,30 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    IEnumerator ObstacleAnimationRoutineLeft()
+      IEnumerator ObstacleAnimationRoutineLeft()
     {
-        float previousLocation = transform.position.x;
         // Play the obstacle animation
         animator.SetTrigger("ObstacleLeftEncountered");
+        Vector3 targetPosition = new Vector3(currentLane * (laneDistance - 1.5f), transform.position.y, transform.position.z);
+        transform.position = targetPosition;
+        currentLane--;
 
         // Wait for the animation duration
         yield return new WaitForSeconds(1f);
-
-        // Update the current lane
-        currentLane--;
-
-        // Move smoothly to the new position
-        float targetX = previousLocation;
-        StartCoroutine(MoveToLane(targetX));
 
         // Reset the animation state
         animator.ResetTrigger("ObstacleLeftEncountered");
     }
-
     IEnumerator ObstacleAnimationRoutineRight()
     {
-        float previousLocation = transform.position.x;
         // Play the obstacle animation
         animator.SetTrigger("ObstacleRightEncountered");
+        Vector3 targetPosition = new Vector3(currentLane * (laneDistance + 1.5f), transform.position.y, transform.position.z);
+        transform.position = targetPosition;
+        currentLane++;
 
         // Wait for the animation duration
         yield return new WaitForSeconds(1f);
-
-        // Update the current lane
-        currentLane++;
-
-        // Move smoothly to the new position
-        float targetX = previousLocation;
-        StartCoroutine(MoveToLane(targetX));
 
         // Reset the animation state
         animator.ResetTrigger("ObstacleRightEncountered");
