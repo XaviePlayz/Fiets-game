@@ -36,9 +36,11 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     public float jumpForce = 10f;
     public float maxJumpHeight = 2f;
-    public float descentForce = 2f;
+    public float descentForce = 1f;
+    public float jumpCooldown = 1f;
     [SerializeField] private bool isJumping = false;
     [SerializeField] private bool isGrounded = true;
+    private bool canJump = true;
 
     [Header("Slide")]
     public float slideDuration = 1f;
@@ -101,7 +103,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check for jump input
-        if (Input.GetKeyDown(KeyCode.W) && !isJumping || Input.GetKeyDown(KeyCode.UpArrow) && !isJumping)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping && isGrounded && canJump)
         {
             if (!isSliding)
             {
@@ -241,7 +243,16 @@ public class PlayerController : MonoBehaviour
 
             // Set the grounded flag to false
             isGrounded = false;
+
+            // Start the jump cooldown
+            StartCoroutine(JumpCooldown());
         }
+    }
+    IEnumerator JumpCooldown()
+    {
+        canJump = false;
+        yield return new WaitForSeconds(jumpCooldown);
+        canJump = true;
     }
 
     void CancelSlideJump()
