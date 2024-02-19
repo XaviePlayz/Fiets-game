@@ -56,4 +56,13 @@ public class PauseMenu : MonoBehaviour
         // Load the scene named "MainMenu"
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }
