@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Start Running"))
         {
-            // Check if the animation has reached a specific time (adjust as needed)
+            // Check if the animation has reached a specific time
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
             {
                 // Trigger the Running animation
