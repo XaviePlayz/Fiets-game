@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check for jump input
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) && !isJumping)
+        if (Input.GetKeyDown(KeyCode.W) && !isJumping || Input.GetKeyDown(KeyCode.UpArrow) && !isJumping)
         {
             if (!isSliding)
             {
@@ -135,12 +135,11 @@ public class PlayerController : MonoBehaviour
             currentLane = targetLane;
             currentLane = Mathf.Clamp(currentLane, 0, 2); // Ensure the player stays within valid lanes
 
-            // Adjust the target x-position based on the desired lane positions
+            // Calculate the target x-position based on the desired lane positions
             float targetX = currentLane * laneDistance;
 
-            // Set the new position
-            Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
-            transform.position = targetPosition;
+            // Start a coroutine to smoothly move to the new position
+            StartCoroutine(MoveToLane(targetX));
 
             // Stop obstacle animation routines if running
             StopCoroutine(ObstacleAnimationRoutineLeft());
@@ -210,7 +209,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator MoveToLane(float targetX)
     {
         float elapsedTime = 0f;
-        float duration = 0.5f; // Adjust the duration as needed
+        float duration = 0.2f; // Adjust the duration as needed
         Vector3 initialPosition = transform.position;
         Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
 
@@ -294,6 +293,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
     }
 
+    // Detect when the player touches an obstacle
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Obstacle"))
@@ -308,6 +308,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            isJumping = false;
         }
     }
 
