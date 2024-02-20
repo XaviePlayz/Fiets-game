@@ -77,7 +77,7 @@ public class ScoreManager : MonoBehaviour
     void UpdateHighScoreUI()
     {
         // Update the UI Text to display the high score with leading zeros
-        highScoreText.text = "Best: " + highScore.ToString("D6");
+        highScoreText.text = "Hoogste: " + highScore.ToString("D6");
     }
 
     void SaveHighScore()
