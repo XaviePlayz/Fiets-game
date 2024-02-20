@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Ground
+  - Front_Wheel
   layers:
   - Default
   - TransparentFX
