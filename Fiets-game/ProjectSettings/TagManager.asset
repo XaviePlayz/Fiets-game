@@ -7,6 +7,9 @@ TagManager:
   - Obstacle
   - Ground
   - Front_Wheel
+  - Pedal
+  - Back_Wheel
+  - HandleBar
   layers:
   - Default
   - TransparentFX
