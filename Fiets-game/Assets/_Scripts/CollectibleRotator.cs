@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CollectibleRotator : MonoBehaviour
 {
-    public float rotationSpeed = 50f;
+    public float rotationSpeed = 75f;
 
     void Update()
     {
