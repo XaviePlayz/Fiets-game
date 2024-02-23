@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Collectibles : MonoBehaviour
 {
+    public CollectibleSpawner collectibleSpawner;
     public AudioClip collectSound; // The sound to play when collected
     private AudioSource audioSource;
 
@@ -22,58 +23,73 @@ public class Collectibles : MonoBehaviour
     {
         if (other.CompareTag("Front_Wheel"))
         {
-            other.gameObject.SetActive(false);
             Debug.Log("FRONT WHEEL Collected!");
+
+            // Notify the spawner when the collectible is collected
+            collectibleSpawner.OnCollectibleCollected();
 
             // Play the collect sound
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
             }
+            Destroy(other.gameObject);
         }
         if (other.CompareTag("Pedal"))
         {
-            other.gameObject.SetActive(false);
             Debug.Log("PEDAL Collected!");
+
+            // Notify the spawner when the collectible is collected
+            collectibleSpawner.OnCollectibleCollected();
 
             // Play the collect sound
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
             }
+            Destroy(other.gameObject);
         }
         if (other.CompareTag("Back_Wheel"))
         {
-            other.gameObject.SetActive(false);
             Debug.Log("BACK WHEEL Collected!");
+
+            // Notify the spawner when the collectible is collected
+            collectibleSpawner.OnCollectibleCollected();
 
             // Play the collect sound
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
             }
+            Destroy(other.gameObject);
         }
         if (other.CompareTag("HandleBar"))
         {
-            other.gameObject.SetActive(false);
             Debug.Log("HANDLEBAR Collected!");
+
+            // Notify the spawner when the collectible is collected
+            collectibleSpawner.OnCollectibleCollected();
 
             // Play the collect sound
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
             }
+            Destroy(other.gameObject);
         }
         if (other.CompareTag("Frame"))
         {
-            other.gameObject.SetActive(false);
             Debug.Log("FRAME Collected!");
+
+            // Notify the spawner when the collectible is collected
+            collectibleSpawner.OnCollectibleCollected();
 
             // Play the collect sound
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
             }
+            Destroy(other.gameObject);
         }
     }
 }

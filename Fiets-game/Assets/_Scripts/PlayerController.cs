@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check for jump input
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping && isGrounded && canJump)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping && canJump)
         {
             if (!isSliding)
             {
