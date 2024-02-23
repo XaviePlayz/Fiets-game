@@ -10,6 +10,7 @@ TagManager:
   - Pedal
   - Back_Wheel
   - HandleBar
+  - Frame
   layers:
   - Default
   - TransparentFX

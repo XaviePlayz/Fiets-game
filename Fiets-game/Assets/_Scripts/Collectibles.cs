@@ -64,5 +64,16 @@ public class Collectibles : MonoBehaviour
                 audioSource.PlayOneShot(collectSound);
             }
         }
+        if (other.CompareTag("Frame"))
+        {
+            other.gameObject.SetActive(false);
+            Debug.Log("FRAME Collected!");
+
+            // Play the collect sound
+            if (collectSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(collectSound);
+            }
+        }
     }
 }
