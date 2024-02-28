@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 7722486232784659327}
   - component: {fileID: 3753146259275409929}
   - component: {fileID: 8317660155037103198}
+  - component: {fileID: 9043109095650603784}
   m_Layer: 0
   m_Name: Handlebar [Object]
   m_TagString: HandleBar
@@ -188,6 +189,7 @@ MonoBehaviour:
   zIncreaseAmount: 1
   sphereCastRadius: 0.5
   maxIterations: 10
+  startDelay: 15
 --- !u!135 &8317660155037103198
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -209,6 +211,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 3
   m_Center: {x: -0.14816074, y: -0.6237409, z: -0.0012010324}
+--- !u!114 &9043109095650603784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553925763899792410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c7226cdf952ec418123e432c29557a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 75
+  transformX: 0
 --- !u!1 &5134151460949389670
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,10 +317,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8258491025765616182}
-  - component: {fileID: 8053353394518999019}
+  - component: {fileID: 1651762079237250229}
   m_Layer: 0
   m_Name: Handlebar Collectible
-  m_TagString: Untagged
+  m_TagString: MissedCollectible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -325,17 +341,24 @@ Transform:
   - {fileID: 6805874690944786554}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8053353394518999019
-MonoBehaviour:
+--- !u!65 &1651762079237250229
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6435060254333322228}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94c7226cdf952ec418123e432c29557a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 75
-  transformX: 0
+  serializedVersion: 3
+  m_Size: {x: 53.761154, y: 8.921748, z: 1}
+  m_Center: {x: -0.12200832, y: 2, z: 0}

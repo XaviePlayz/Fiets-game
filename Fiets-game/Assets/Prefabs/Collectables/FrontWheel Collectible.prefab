@@ -341,10 +341,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3193771722829319380}
-  - component: {fileID: 6111100829249369410}
+  - component: {fileID: 6087160327774685660}
   m_Layer: 0
   m_Name: FrontWheel Collectible
-  m_TagString: Untagged
+  m_TagString: MissedCollectible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -365,20 +365,27 @@ Transform:
   - {fileID: 1497970241802878686}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6111100829249369410
-MonoBehaviour:
+--- !u!65 &6087160327774685660
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4291990086455889268}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94c7226cdf952ec418123e432c29557a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 75
-  transformX: 0
+  serializedVersion: 3
+  m_Size: {x: 53.761154, y: 8.921748, z: 1}
+  m_Center: {x: -0.12200832, y: 2, z: 0}
 --- !u!1 &5978025140214094134
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +399,7 @@ GameObject:
   - component: {fileID: 80930501251987951}
   - component: {fileID: 4981467346015080717}
   - component: {fileID: 9125302030291946211}
+  - component: {fileID: 596260805709355775}
   m_Layer: 0
   m_Name: FrontWheel [Object]
   m_TagString: Front_Wheel
@@ -484,6 +492,7 @@ MonoBehaviour:
   zIncreaseAmount: 1
   sphereCastRadius: 0.5
   maxIterations: 10
+  startDelay: 15
 --- !u!135 &9125302030291946211
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -505,6 +514,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0.026241347}
+--- !u!114 &596260805709355775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5978025140214094134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c7226cdf952ec418123e432c29557a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 75
+  transformX: 0
 --- !u!1 &8578169575086069650
 GameObject:
   m_ObjectHideFlags: 0

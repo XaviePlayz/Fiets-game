@@ -11,6 +11,7 @@ TagManager:
   - Back_Wheel
   - HandleBar
   - Frame
+  - MissedCollectible
   layers:
   - Default
   - TransparentFX

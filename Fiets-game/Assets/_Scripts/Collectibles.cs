@@ -32,6 +32,7 @@ public class Collectibles : MonoBehaviour
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
+                ScoreManager.Instance.IncreaseScore(125);
             }
             Destroy(other.gameObject);
         }
@@ -46,6 +47,7 @@ public class Collectibles : MonoBehaviour
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
+                ScoreManager.Instance.IncreaseScore(125);
             }
             Destroy(other.gameObject);
         }
@@ -60,6 +62,7 @@ public class Collectibles : MonoBehaviour
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
+                ScoreManager.Instance.IncreaseScore(125);
             }
             Destroy(other.gameObject);
         }
@@ -74,6 +77,7 @@ public class Collectibles : MonoBehaviour
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
+                ScoreManager.Instance.IncreaseScore(125);
             }
             Destroy(other.gameObject);
         }
@@ -88,8 +92,16 @@ public class Collectibles : MonoBehaviour
             if (collectSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(collectSound);
+                ScoreManager.Instance.IncreaseScore(125);
             }
             Destroy(other.gameObject);
+        }
+        if (other.CompareTag("MissedCollectible"))
+        {
+            Debug.Log("Collectible MISSED!");
+
+            // Notify the spawner when the collectible is missed
+            collectibleSpawner.OnCollectibleMissed();
         }
     }
 }

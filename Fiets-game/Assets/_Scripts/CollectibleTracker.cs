@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CollectibleTracker : MonoBehaviour
@@ -6,13 +7,25 @@ public class CollectibleTracker : MonoBehaviour
     public float sphereCastRadius = 0.5f; // Adjust the radius as needed
     public int maxIterations = 10; // Maximum number of iterations in the loop
 
-    void Update()
+    // Delay before starting to check for obstacles (in seconds)
+    public float startDelay = 15f;
+
+    void Start()
     {
-        // Check if the collectible is above an obstacle and increase its z-value if needed
-        CheckObstacleBelow();
+        // Start the coroutine for the delay
+        StartCoroutine(StartCheckingForObstacles());
     }
 
-    void CheckObstacleBelow()
+    IEnumerator StartCheckingForObstacles()
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(startDelay);
+
+        // Start checking for obstacles after the delay
+        StartCoroutine(CheckObstacleBelow());
+    }
+
+    IEnumerator CheckObstacleBelow()
     {
         // Create a sphere cast from the collectible's position downward, considering only the z-axis
         Vector3 castOrigin = transform.position;
@@ -23,23 +36,23 @@ public class CollectibleTracker : MonoBehaviour
 
         int iterations = 0;
 
-        // Check if the sphere cast hits an object with the "Obstacle" tag
-        if (iterations <= maxIterations)
+        // Continue checking for obstacles
+        while (Physics.SphereCast(ray, sphereCastRadius, out hit, 1f, LayerMask.GetMask("Obstacle")))
         {
-            while (Physics.SphereCast(ray, sphereCastRadius, out hit, 1f, LayerMask.GetMask("Obstacle")))
+            // Increase the z-value until the collectible is no longer above an obstacle
+            transform.position += new Vector3(0f, 0f, zIncreaseAmount);
+
+            iterations++;
+
+            // Break the loop if the maximum number of iterations is reached
+            if (iterations >= maxIterations)
             {
-                // Increase the z-value until the collectible is no longer above an obstacle
-                transform.position += new Vector3(0f, 0f, zIncreaseAmount);
-
-                iterations++;
-
-                // Break the loop if the maximum number of iterations is reached
-                if (iterations >= maxIterations)
-                {
-                    Debug.LogWarning("Max iterations reached in CheckObstacleBelow. Exiting loop.");
-                    break;
-                }
+                Debug.LogWarning("Max iterations reached in CheckObstacleBelow. Exiting loop.");
+                break;
             }
-        }     
+
+            // Wait for a short interval before the next check
+            yield return null;
+        }
     }
 }

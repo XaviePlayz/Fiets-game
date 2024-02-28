@@ -85,10 +85,17 @@ public class CollectibleSpawner : MonoBehaviour
         }
     }
 
-    // Called by CollectibleTracker when a collectible is collected
+    // Called by Collectibles when a collectible is collected
     public void OnCollectibleCollected()
     {
         // Spawn the next collectible when the current one is collected
+        SpawnCollectible();
+    }
+
+    // Called by Collectibles when a collectible is missed
+    public void OnCollectibleMissed()
+    {
+        // Spawn the next collectible when the current one is missed
         SpawnCollectible();
     }
 }
