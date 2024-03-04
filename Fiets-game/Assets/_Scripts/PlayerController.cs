@@ -116,6 +116,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (isSliding && Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            animator.ResetTrigger("IsSliding");
+            animator.SetTrigger("StaySliding");
+        }
+
         // Check for slide input
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {

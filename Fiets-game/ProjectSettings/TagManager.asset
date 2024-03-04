@@ -12,6 +12,7 @@ TagManager:
   - HandleBar
   - Frame
   - MissedCollectible
+  - BikeProgress
   layers:
   - Default
   - TransparentFX

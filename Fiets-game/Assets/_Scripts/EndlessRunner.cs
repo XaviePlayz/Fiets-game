@@ -69,7 +69,7 @@ public class EndlessRunner : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !hasStarted)
+        if (Input.anyKeyDown && !hasStarted)
         {
             // Trigger the Start Running animation
             PlayerController.Instance.animator.SetBool("StartRunning", true);

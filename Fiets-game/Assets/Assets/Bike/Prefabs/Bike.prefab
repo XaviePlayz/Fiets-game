@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 1087479477664848935}
   - component: {fileID: 5951214583498710417}
   m_Layer: 0
-  m_Name: Circle.161
+  m_Name: PedalWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,12 +192,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1742267276061548161}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2254467, y: -0.67387056, z: -0.2798462}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.22544682, y: -0.67387044, z: -0.2798462}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3139154462382001592}
+  m_Children:
+  - {fileID: 6381295498004433429}
+  m_Father: {fileID: 6731763219286868622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1087479477664848935
 MeshFilter:
@@ -344,7 +345,7 @@ GameObject:
   - component: {fileID: 1221072591259865308}
   - component: {fileID: 3514215948791039107}
   m_Layer: 0
-  m_Name: Circle.160
+  m_Name: PedalWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,12 +359,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2188626071894153981}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2254467, y: -0.67387056, z: 0.26410675}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.22544682, y: -0.67387044, z: 0.26411057}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3139154462382001592}
+  m_Children:
+  - {fileID: 906160617622114958}
+  m_Father: {fileID: 6731763219286868622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1221072591259865308
 MeshFilter:
@@ -690,12 +692,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4312087505161512243}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8895283, y: 1.0353552, z: 0.0068740845}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.20229566, y: -0.94682014, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3139154462382001592}
+  m_Father: {fileID: 4835425720363266290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9006542576897227920
 MeshFilter:
@@ -929,7 +931,7 @@ GameObject:
   - component: {fileID: 3570391824276715305}
   - component: {fileID: 2080587564242505386}
   m_Layer: 0
-  m_Name: Circle.163
+  m_Name: Pedal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -943,12 +945,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6190138367722236608}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.22102356, y: -0.041083813, z: 0.3570938}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0044237375, y: 0.6327863, z: 0.09298706}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3139154462382001592}
+  m_Father: {fileID: 6896704032366208925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3570391824276715305
 MeshFilter:
@@ -1087,6 +1089,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6315042229818431326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6731763219286868622}
+  m_Layer: 0
+  m_Name: Pedals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6731763219286868622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315042229818431326}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6896704032366208925}
+  - {fileID: 5464241199143094824}
+  m_Father: {fileID: 3139154462382001592}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6666076269039150245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,11 +1236,7 @@ Transform:
   m_Children:
   - {fileID: 9167591622625262040}
   - {fileID: 7373153409778280796}
-  - {fileID: 6896704032366208925}
-  - {fileID: 5464241199143094824}
-  - {fileID: 6381295498004433429}
-  - {fileID: 906160617622114958}
-  - {fileID: 4589204971970945905}
+  - {fileID: 6731763219286868622}
   - {fileID: 4072235449799033846}
   - {fileID: 4835425720363266290}
   m_Father: {fileID: 0}
@@ -1240,7 +1271,8 @@ Transform:
   m_LocalPosition: {x: -1.687233, y: 1.9821755, z: 0.0068740845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4589204971970945905}
   m_Father: {fileID: 3139154462382001592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7284775323298458622
@@ -1393,7 +1425,7 @@ GameObject:
   - component: {fileID: 3166027559031444758}
   - component: {fileID: 5393129529795616727}
   m_Layer: 0
-  m_Name: Circle.162
+  m_Name: Pedal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1407,12 +1439,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8898735439145979479}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.22102356, y: -1.3081012, z: -0.37565613}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0044237375, y: -0.63423085, z: -0.09580612}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3139154462382001592}
+  m_Father: {fileID: 5464241199143094824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3166027559031444758
 MeshFilter:

@@ -7,6 +7,7 @@ public class CollectibleRotator : MonoBehaviour
 {
     public float rotationSpeed = 75f;
     public float transformX;
+    public bool freezePostition;
 
     private void Start()
     {
@@ -15,7 +16,15 @@ public class CollectibleRotator : MonoBehaviour
     void Update()
     {
         // Rotate the object around the y-axis
-        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-        transform.position = new Vector3(transformX, transform.position.y, transform.position.z);
+        if (freezePostition)
+        {
+            transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+            transform.position = new Vector3(transformX, transform.position.y, transform.position.z);
+        }
+        else
+        {
+            transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        }
     }
 }

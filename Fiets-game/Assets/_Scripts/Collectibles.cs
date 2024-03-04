@@ -9,14 +9,25 @@ public class Collectibles : MonoBehaviour
     public AudioClip collectSound; // The sound to play when collected
     private AudioSource audioSource;
 
+    public GameObject BikeProgress;
+    public GameObject[] BikeParts;
+    public GameObject[] Transparant;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             // If AudioSource is not already attached, add it dynamically
-            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource = gameObject.AddComponent<AudioSource>();;
         }
+    }
+
+    IEnumerator ShowBikeProgress()
+    {
+        BikeProgress.SetActive(true);
+        yield return new WaitForSeconds(4);
+        BikeProgress.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,6 +44,10 @@ public class Collectibles : MonoBehaviour
             {
                 audioSource.PlayOneShot(collectSound);
                 ScoreManager.Instance.IncreaseScore(125);
+
+                BikeParts[0].SetActive(true);
+                Transparant[0].SetActive(false);
+                StartCoroutine(ShowBikeProgress());
             }
             Destroy(other.gameObject);
         }
@@ -48,6 +63,10 @@ public class Collectibles : MonoBehaviour
             {
                 audioSource.PlayOneShot(collectSound);
                 ScoreManager.Instance.IncreaseScore(125);
+
+                BikeParts[1].SetActive(true);
+                Transparant[1].SetActive(false);
+                StartCoroutine(ShowBikeProgress());
             }
             Destroy(other.gameObject);
         }
@@ -63,6 +82,10 @@ public class Collectibles : MonoBehaviour
             {
                 audioSource.PlayOneShot(collectSound);
                 ScoreManager.Instance.IncreaseScore(125);
+
+                BikeParts[2].SetActive(true);
+                Transparant[2].SetActive(false);
+                StartCoroutine(ShowBikeProgress());
             }
             Destroy(other.gameObject);
         }
@@ -78,6 +101,10 @@ public class Collectibles : MonoBehaviour
             {
                 audioSource.PlayOneShot(collectSound);
                 ScoreManager.Instance.IncreaseScore(125);
+                BikeParts[3].SetActive(true);
+                Transparant[3].SetActive(false);
+                StartCoroutine(ShowBikeProgress());
+
             }
             Destroy(other.gameObject);
         }
@@ -93,6 +120,10 @@ public class Collectibles : MonoBehaviour
             {
                 audioSource.PlayOneShot(collectSound);
                 ScoreManager.Instance.IncreaseScore(125);
+
+                BikeParts[4].SetActive(true);
+                Transparant[4].SetActive(false);
+                StartCoroutine(ShowBikeProgress());
             }
             Destroy(other.gameObject);
         }
