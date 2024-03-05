@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (isSliding && Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             StartCoroutine(RemainSliding());
         }
