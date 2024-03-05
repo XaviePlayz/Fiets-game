@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     public float jumpForce = 10f;
     public float maxJumpHeight = 2f;
+    public float gravity = 9.8f; // Standard Earth gravity
     public float descentForce = 1f;
     public float jumpCooldown = 1f;
     [SerializeField] private bool isJumping = false;
@@ -84,12 +85,14 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y > maxJumpHeight)
         {
             // Reduce the vertical velocity to make the descent smoother
-            GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x, -descentForce, GetComponent<Rigidbody>().velocity.z);
+            float descentVelocity = -descentForce * Time.deltaTime;
+            GetComponent<Rigidbody>().velocity += Vector3.up * descentVelocity;
         }
         else
         {
             // If not above the max jump height, apply a lesser downward force
-            GetComponent<Rigidbody>().AddForce(Vector3.down * descentForce, ForceMode.Acceleration);
+            float gravityVelocity = gravity * Time.deltaTime;
+            GetComponent<Rigidbody>().velocity += Vector3.down * gravityVelocity;
         }
 
         // Get input for lane switching
@@ -118,8 +121,7 @@ public class PlayerController : MonoBehaviour
 
         if (isSliding && Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            animator.ResetTrigger("IsSliding");
-            animator.SetTrigger("StaySliding");
+            StartCoroutine(RemainSliding());
         }
 
         // Check for slide input
@@ -236,23 +238,29 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (isGrounded) // Check if currently grounded
+        if (!isJumping)
         {
             animator.SetTrigger("IsJumping");
 
             // Apply an impulse force to make the player jump
-            GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x, 0f, GetComponent<Rigidbody>().velocity.z);
-            GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            Vector3 jumpVelocity = Vector3.up * CalculateJumpVelocity();
+            GetComponent<Rigidbody>().velocity += jumpVelocity;
 
-            // Set the jumping flag to true
             isJumping = true;
-
-            // Set the grounded flag to false
             isGrounded = false;
 
             // Start the jump cooldown
             StartCoroutine(JumpCooldown());
         }
+    }
+
+    float CalculateJumpVelocity()
+    {
+        // Calculate the initial upward velocity for the jump
+        // You can adjust the formula as needed for your game feel
+        float initialVelocity = Mathf.Sqrt(2f * jumpForce * gravity);
+
+        return initialVelocity;
     }
     IEnumerator JumpCooldown()
     {
@@ -268,24 +276,20 @@ public class PlayerController : MonoBehaviour
         StopCoroutine(SlideRoutine());
         isSliding = false;
 
-        // Apply a force for canceled slide jump
-        GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        // Apply a force for canceled slide jump (same as regular jump force)
+        GetComponent<Rigidbody>().AddForce(Vector3.up * CalculateJumpVelocity(), ForceMode.Impulse);
 
-        // Set the jumping flag to true
         isJumping = true;
-
-        // Set the grounded flag to false
         isGrounded = false;
     }
 
     void Slide()
     {
-        if (isGrounded)
+        if (isGrounded && !isSliding)
         {
-            // Start sliding by adjusting the player's scale and activating the isSliding flag
             StartCoroutine(SlideRoutine());
         }
-        else
+        else if (!isGrounded)
         {
             GetComponent<Rigidbody>().AddForce(Vector3.down * descentForce * 7, ForceMode.Impulse);
             StartCoroutine(SlideRoutine());
@@ -294,20 +298,27 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator SlideRoutine()
     {
+        if (!isSliding)
+        {
+            isSliding = true;
+            isJumping = false;
+            isGrounded = true;
+            animator.SetTrigger("IsSliding");
+
+            // Wait for the slide duration
+            yield return new WaitForSeconds(0.7f);
+
+            isSliding = false;
+            animator.ResetTrigger("IsSliding");
+        }
+    }
+
+    IEnumerator RemainSliding()
+    {
         isSliding = true;
-        animator.SetTrigger("IsSliding");
-
-        // Wait for the slide duration
-        yield return new WaitForSeconds(slideDuration);
-
-        // Reset the player's scale and deactivate the isSliding flag
+        animator.SetTrigger("StaySliding");
+        yield return new WaitForSeconds(0.2f);
         isSliding = false;
-
-        // Set the jumping flag to false after sliding
-        isJumping = false;
-
-        // Set the grounded flag to true after sliding
-        isGrounded = true;
     }
 
     // Detect when the player touches an obstacle

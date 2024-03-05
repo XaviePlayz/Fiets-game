@@ -5,10 +5,11 @@ using UnityEngine;
 public class CollectibleSpawner : MonoBehaviour
 {
     public GameObject[] collectiblePrefabs; // Array of collectible prefabs
-    private List<int> availableCollectibles = new List<int>(); // List to track available collectibles
+    [SerializeField] private List<int> availableCollectibles = new List<int>(); // List to track available collectibles
 
     public float initialZSpawnDistance = 10f; // Initial distance away from the player on the z-axis
 
+    private int randomCollectibleIndex;
     private int totalNumberOfCollectibles = 0; // Variable to track the total number of collectibles spawned
     private GameObject lastSpawnedCollectible; // Reference to the last spawned collectible
 
@@ -41,10 +42,9 @@ public class CollectibleSpawner : MonoBehaviour
 
         // Get a random index from the available collectibles
         int randomIndex = Random.Range(0, availableCollectibles.Count);
-        int collectibleIndex = availableCollectibles[randomIndex];
 
-        // Remove the chosen collectible index from the available list
-        availableCollectibles.RemoveAt(randomIndex);
+        randomCollectibleIndex = randomIndex;
+        int collectibleIndex = availableCollectibles[randomIndex];       
 
         // Choose a random x-position from the available x-positions
         float[] xPositions = { -2f, 2f, 6f };
@@ -74,10 +74,6 @@ public class CollectibleSpawner : MonoBehaviour
 
             // Update the reference to the last spawned collectible
             lastSpawnedCollectible = collectible;
-
-            // Attach a script to the collectible to notify when it's collected
-            Collectibles tracker = collectible.AddComponent<Collectibles>();
-            tracker.collectibleSpawner = this;
         }
         else
         {
@@ -85,17 +81,16 @@ public class CollectibleSpawner : MonoBehaviour
         }
     }
 
-    // Called by Collectibles when a collectible is collected
-    public void OnCollectibleCollected()
+    // Remove the chosen collectible index from the available list if it got collected
+    public void RemoveCollectedCollectible()
     {
-        // Spawn the next collectible when the current one is collected
-        SpawnCollectible();
+        availableCollectibles.RemoveAt(randomCollectibleIndex);
     }
 
-    // Called by Collectibles when a collectible is missed
-    public void OnCollectibleMissed()
+    // Called when the Player passes the collectible
+    public void OnCollectiblePassed()
     {
-        // Spawn the next collectible when the current one is missed
+        // Spawn the next collectible when the current one is collected
         SpawnCollectible();
     }
 }

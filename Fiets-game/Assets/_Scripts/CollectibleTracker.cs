@@ -6,6 +6,7 @@ public class CollectibleTracker : MonoBehaviour
     public float zIncreaseAmount = 1f;
     public float sphereCastRadius = 0.5f; // Adjust the radius as needed
     public int maxIterations = 10; // Maximum number of iterations in the loop
+    public bool isCollected;
 
     // Delay before starting to check for obstacles (in seconds)
     public float startDelay = 15f;
@@ -31,15 +32,12 @@ public class CollectibleTracker : MonoBehaviour
         Vector3 castOrigin = transform.position;
         castOrigin.y += sphereCastRadius; // Offset the cast origin slightly above the collectible
 
-        Ray ray = new Ray(castOrigin, Vector3.down);
-        RaycastHit hit;
-
         int iterations = 0;
 
         // Continue checking for obstacles
-        while (Physics.SphereCast(ray, sphereCastRadius, out hit, 1f, LayerMask.GetMask("Obstacle")))
+        while (Physics.CheckSphere(castOrigin, sphereCastRadius, LayerMask.GetMask("Obstacle")))
         {
-            // Increase the z-value until the collectible is no longer above an obstacle
+            // Increase the z-value until the collectible is no longer near an obstacle
             transform.position += new Vector3(0f, 0f, zIncreaseAmount);
 
             iterations++;

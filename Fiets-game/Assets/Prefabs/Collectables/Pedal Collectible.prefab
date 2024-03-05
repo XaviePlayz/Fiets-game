@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7180085504280451771}
   - component: {fileID: 2786082607308673140}
+  - component: {fileID: 7563742297992835187}
   m_Layer: 0
   m_Name: Pedal Collectible
   m_TagString: MissedCollectible
@@ -137,7 +138,34 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 53.761154, y: 8.921748, z: 1}
-  m_Center: {x: -0.12200832, y: 2, z: 0}
+  m_Center: {x: -0.12200832, y: 2, z: 6}
+--- !u!54 &7563742297992835187
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069183334167000220}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 92
+  m_CollisionDetection: 0
 --- !u!1 &2382452699764139217
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,8 +517,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zIncreaseAmount: 1
-  sphereCastRadius: 0.5
+  sphereCastRadius: 2
   maxIterations: 10
+  isCollected: 0
   startDelay: 15
 --- !u!135 &7654569421736019705
 SphereCollider:
@@ -527,3 +556,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 75
   transformX: 0
+  freezePostition: 1
