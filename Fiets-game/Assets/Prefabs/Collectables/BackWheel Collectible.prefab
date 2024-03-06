@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zIncreaseAmount: 1
-  sphereCastRadius: 2
+  sphereCastRadius: 3
   maxIterations: 10
   isCollected: 0
   startDelay: 15
