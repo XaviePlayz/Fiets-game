@@ -62,7 +62,8 @@ public class Collectibles : MonoBehaviour
             // Show the Bike part you Collected in Text
             bikePart.text = "VOORWIEL";
 
-                BikeParts[0].SetActive(true);
+            other.gameObject.GetComponentInParent<Collider>().enabled = false;
+            BikeParts[0].SetActive(true);
             Transparant[0].SetActive(false);
             BikePartCollected();
 
@@ -73,6 +74,7 @@ public class Collectibles : MonoBehaviour
             Debug.Log($"{other.gameObject.tag} Collected!");
             bikePart.text = "PEDALEN";
 
+            other.gameObject.GetComponentInParent<Collider>().enabled = false;
             BikeParts[1].SetActive(true);
             Transparant[1].SetActive(false);
             BikePartCollected();
@@ -84,6 +86,7 @@ public class Collectibles : MonoBehaviour
             Debug.Log($"{other.gameObject.tag} Collected!");
             bikePart.text = "ACHTERWIEL";
 
+            other.gameObject.GetComponentInParent<Collider>().enabled = false;
             BikeParts[2].SetActive(true);
             Transparant[2].SetActive(false);
             BikePartCollected();
@@ -94,6 +97,7 @@ public class Collectibles : MonoBehaviour
             Debug.Log($"{other.gameObject.tag} Collected!");
             bikePart.text = "STUUR";
 
+            other.gameObject.GetComponentInParent<Collider>().enabled = false;
             BikeParts[3].SetActive(true);
             Transparant[3].SetActive(false);
             BikePartCollected();
@@ -104,6 +108,7 @@ public class Collectibles : MonoBehaviour
             Debug.Log($"{other.gameObject.tag} Collected!");
             bikePart.text = "FRAME";
 
+            other.gameObject.GetComponentInParent<Collider>().enabled = false;
             BikeParts[4].SetActive(true);
             Transparant[4].SetActive(false);
             BikePartCollected();
@@ -111,14 +116,8 @@ public class Collectibles : MonoBehaviour
         }
         if (other.CompareTag("MissedCollectible"))
         {
-            // Get the CollectibleTracker component
-            CollectibleTracker collectibleTracker = other.GetComponent<CollectibleTracker>();
-
-            // Check if the component is not null before accessing its properties
-            if (collectibleTracker != null && !collectibleTracker.isCollected)
-            {
-                collectibleSpawner.OnCollectiblePassed();
-            }
+            Debug.Log("Collectible Passed!");
+            collectibleSpawner.OnCollectiblePassed();
         }
     }
 }

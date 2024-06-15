@@ -4,8 +4,6 @@ using UnityEngine;
 public class CollectibleTracker : MonoBehaviour
 {
     public float zIncreaseAmount = 1f;
-    public float sphereCastRadius = 0.5f; // Adjust the radius as needed
-    public int maxIterations = 10; // Maximum number of iterations in the loop
     public bool isCollected;
 
     // Delay before starting to check for obstacles (in seconds)
@@ -26,31 +24,21 @@ public class CollectibleTracker : MonoBehaviour
         StartCoroutine(CheckObstacleBelow());
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle"))
+        {
+            StartCoroutine(CheckObstacleBelow());
+        }
+    }
+
     IEnumerator CheckObstacleBelow()
     {
-        // Create a sphere cast from the collectible's position downward, considering only the z-axis
-        Vector3 castOrigin = transform.position;
-        castOrigin.y += sphereCastRadius; // Offset the cast origin slightly above the collectible
+        yield return new WaitForSeconds(3);
+        // Increase the z-value until the collectible is no longer near an obstacle
+        transform.position += new Vector3(0f, 0f, zIncreaseAmount);
 
-        int iterations = 0;
-
-        // Continue checking for obstacles
-        while (Physics.CheckSphere(castOrigin, sphereCastRadius, LayerMask.GetMask("Obstacle")))
-        {
-            // Increase the z-value until the collectible is no longer near an obstacle
-            transform.position += new Vector3(0f, 0f, zIncreaseAmount);
-
-            iterations++;
-
-            // Break the loop if the maximum number of iterations is reached
-            if (iterations >= maxIterations)
-            {
-                Debug.LogWarning("Max iterations reached in CheckObstacleBelow. Exiting loop.");
-                break;
-            }
-
-            // Wait for a short interval before the next check
-            yield return null;
-        }
+        // Wait for a short interval before the next check
+        yield return null;
     }
 }

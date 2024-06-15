@@ -32,6 +32,10 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float laneDistance = 4f;
     [SerializeField] private int currentLane = 1; // 0 for left, 1 for middle, 2 for right
+    private bool movedLeft;
+    private bool movedRight;
+    private bool isLaneSwitchingCooldown;
+    private float laneSwitchCooldownDuration = 0.15f; // Cooldown duration in seconds
 
     [Header("Jump")]
     public float jumpForce = 10f;
@@ -81,57 +85,83 @@ public class PlayerController : MonoBehaviour
 
     void HandleInput()
     {
-        // Apply a downward force if the player is above the max jump height
-        if (transform.position.y > maxJumpHeight)
+        if (!PauseMenu.Instance.isPaused)
         {
-            // Reduce the vertical velocity to make the descent smoother
-            float descentVelocity = -descentForce * Time.deltaTime;
-            GetComponent<Rigidbody>().velocity += Vector3.up * descentVelocity;
-        }
-        else
-        {
-            // If not above the max jump height, apply a lesser downward force
-            float gravityVelocity = gravity * Time.deltaTime;
-            GetComponent<Rigidbody>().velocity += Vector3.down * gravityVelocity;
-        }
-
-        // Get input for lane switching
-        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)))
-        {
-            MoveLane(-1); // Move left
-        }
-        else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)))
-        {
-            MoveLane(1); // Move right
-        }
-
-        // Check for jump input
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping && canJump)
-        {
-            if (!isSliding)
+            // Apply a downward force if the player is above the max jump height
+            if (transform.position.y > maxJumpHeight)
             {
-                Jump();
+                // Reduce the vertical velocity to make the descent smoother
+                float descentVelocity = -descentForce * Time.deltaTime;
+                GetComponent<Rigidbody>().velocity += Vector3.up * descentVelocity;
             }
             else
             {
-                // Cancel sliding immediately and jump with greater force
-                CancelSlideJump();
+                // If not above the max jump height, apply a lesser downward force
+                float gravityVelocity = gravity * Time.deltaTime;
+                GetComponent<Rigidbody>().velocity += Vector3.down * gravityVelocity;
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            StartCoroutine(RemainSliding());
-        }
-
-        // Check for slide input
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (!isSliding)
+            // Get input for lane switching
+            if ((Input.GetKeyDown(KeyCode.A) && !isLaneSwitchingCooldown || Input.GetKeyDown(KeyCode.LeftArrow) && !isLaneSwitchingCooldown))
             {
-                Slide();
+                MoveLane(-1); // Move left
             }
-        }
+            else if ((Input.GetKeyDown(KeyCode.D) && !isLaneSwitchingCooldown || Input.GetKeyDown(KeyCode.RightArrow) && !isLaneSwitchingCooldown))
+            {
+                MoveLane(1); // Move right
+            }
+
+            // Joystick movement for lane switching
+            float horizontalInput = Input.GetAxis("Horizontal");
+            if (horizontalInput < -0.5f && !movedLeft && !isLaneSwitchingCooldown)
+            {
+                MoveLane(-1); // Move left
+                movedLeft = true;
+                movedRight = false;
+            }
+            else if (horizontalInput > 0.5f && !movedRight && !isLaneSwitchingCooldown)
+            {
+                MoveLane(1); // Move right
+                movedRight = true;
+                movedLeft = false;
+            }
+
+            // Reset movement flags when the joystick is in neutral position
+            if (horizontalInput > -0.5f && horizontalInput < 0.5f)
+            {
+                movedLeft = false;
+                movedRight = false;
+            }
+
+            // Check for jump input
+            float verticalInput = Input.GetAxis("Vertical");
+            if ((Input.GetKeyDown(KeyCode.W) && !isJumping && canJump || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping && canJump || Input.GetKeyDown(KeyCode.JoystickButton0) && !isJumping && canJump || verticalInput > 0.5f && !isJumping && canJump)
+            {
+                if (!isSliding)
+                {
+                    Jump();
+                }
+                else
+                {
+                    // Cancel sliding immediately and jump with greater force
+                    CancelSlideJump();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.JoystickButton2) || verticalInput < -0.5f)
+            {
+                StartCoroutine(RemainSliding());
+            }
+
+            // Check for slide input
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.JoystickButton2) || verticalInput < -0.5f)
+            {
+                if (!isSliding)
+                {
+                    Slide();
+                }
+            }
+        }        
     }
 
     void MoveLane(int direction)
@@ -154,9 +184,18 @@ public class PlayerController : MonoBehaviour
             // Stop obstacle animation routines if running
             StopCoroutine(ObstacleAnimationRoutineLeft());
             StopCoroutine(ObstacleAnimationRoutineRight());
+
+            // Start the lane switching cooldown
+            StartCoroutine(LaneSwitchCooldown());
         }
     }
 
+    IEnumerator LaneSwitchCooldown()
+    {
+        isLaneSwitchingCooldown = true;
+        yield return new WaitForSeconds(laneSwitchCooldownDuration);
+        isLaneSwitchingCooldown = false;
+    }
 
     bool CheckObstacleInLane(int targetLane, int direction)
     {

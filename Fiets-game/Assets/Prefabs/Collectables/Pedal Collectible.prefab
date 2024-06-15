@@ -516,9 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070665972f109814588ddef7281a8884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zIncreaseAmount: 1
-  sphereCastRadius: 3
-  maxIterations: 10
+  zIncreaseAmount: 2
   isCollected: 0
   startDelay: 15
 --- !u!135 &7654569421736019705

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class AudioVolumeController : MonoBehaviour
 {
@@ -30,6 +31,16 @@ public class AudioVolumeController : MonoBehaviour
 
     public void OpenSettings()
     {
+        PauseMenu.Instance.isInOptions = true;
+
+        if (CheckForController.Instance.isControllerConnected)
+        {
+            EventSystem.current.SetSelectedGameObject(PauseMenu.Instance.saveOptionsButton);
+        }
+        else if (!CheckForController.Instance.isControllerConnected)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
         pauseMenu.SetActive(false);
         options.SetActive(true);
         SetVolume(gameVolume);
@@ -42,6 +53,16 @@ public class AudioVolumeController : MonoBehaviour
 
     public void ConfirmSettings()
     {
+        PauseMenu.Instance.isInOptions = false;
+
+        if (CheckForController.Instance.isControllerConnected)
+        {
+            EventSystem.current.SetSelectedGameObject(PauseMenu.Instance.optionsButton);
+        }
+        else if (!CheckForController.Instance.isControllerConnected)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
         pauseMenu.SetActive(true);
         options.SetActive(false);
         SetVolume(gameVolume);
